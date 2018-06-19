@@ -76,7 +76,9 @@ public class TheDemoSite {
 		loginButton.click();
 		
 		WebElement pass = myDriver.findElement(By.xpath("/html/body/table/tbody/tr/td[1]/big/blockquote/blockquote/font/center/b"));
-		pass.getText();
+		assertEquals("**Successful Login**",pass.getText());
+		
+		myDriver.close();
 	}
 	
 
