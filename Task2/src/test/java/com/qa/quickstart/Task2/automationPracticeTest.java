@@ -70,9 +70,9 @@ public class automationPracticeTest {
 		searchButton.click();
 		test2.log(LogStatus.INFO, "Executed Search");
 		
-		WebElement pass = myDriver.findElement(By.xpath("//*[@id=\"center_column\"]/ul/li[1]/div/div[2]/h5/a"));
+		WebElement pass = myDriver.findElement(By.xpath("//*[@id=\"center_column\"]/ul"));
 		try{
-			assertEquals("Printed Summer Dress", pass.getText()); 
+			assertEquals("Dress", pass.getText()); 
 			test2.log(LogStatus.PASS, "Nice One!, Dress Found");
 		}catch(AssertionError f) {
 			test2.log(LogStatus.FAIL, "Bad Luck!, Dress Not Found");
