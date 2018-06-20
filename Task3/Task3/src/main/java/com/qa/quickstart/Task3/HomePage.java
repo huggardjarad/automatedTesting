@@ -13,11 +13,9 @@ public class HomePage {
 	
 	
 	
-	public void clickDroppableButton() {
-		
+	public void clickDroppableButton() {	
 		droppableButton.click();
 	}
-	
 	@FindBy(xpath = "//*[@id=\"menu-item-142\"]/a")
 	private WebElement selectableButton;
 	
@@ -30,6 +28,18 @@ public class HomePage {
 	
 	public void clickAccordionButton() {
 		accordionWidget.click();
+	}
+	@FindBy(xpath = "//*[@id=\"menu-item-145\"]/a")
+	private WebElement autocompleteWidget;
+	
+	public void clickAutoCompleteButton() {
+		autocompleteWidget.click();
+	}
+	@FindBy(xpath = "//*[@id=\"menu-item-146\"]/a")
+	private WebElement datePickerWidget;
+	
+	public void clickDatePickerButton() {
+		datePickerWidget.click();
 	}
 	
 }

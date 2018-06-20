@@ -174,8 +174,77 @@ public class DemoQATest {
 		}
 		
 	}
-	
-	
+		@Test
+		public void autoCompleteTest() {
+			
+			ExtentTest test9 = report.startTest("Testing AutoComplete Page opens");
+			HomePage demoHome4 = PageFactory.initElements(myDriver, HomePage.class);
+			demoHome4.clickAutoCompleteButton();
+			test9.log(LogStatus.INFO, "Attempting to access autoComplete page");
+			try {
+				assertEquals("http://demoqa.com/autocomplete/", myDriver.getCurrentUrl());
+				test9.log(LogStatus.PASS, "Accessed AutoComplete Page");
+			}catch (AssertionError m) {
+				test9.log(LogStatus.FAIL, "Could Not Access AutoComplete Page");
+				fail();
+			}finally {
+				test9.log(LogStatus.INFO, "Current URL: " + myDriver.getCurrentUrl());
+				report.endTest(test9);
+				
+			}
+			ExtentTest test10 = report.startTest("Testing AutoComplete Functions");
+			AutoComplete select = PageFactory.initElements(myDriver, AutoComplete.class);
+			select.selectAndSearch();
+			select.selectDropDown();
+			test10.log(LogStatus.INFO, "Attempting to complete AutoComplete");
+			
+			WebElement searchBar = myDriver.findElement(By.id("tagss"));
+			
+			try {
+			assertEquals("BASIC", searchBar.getAttribute("value"));
+			test10.log(LogStatus.PASS, "Autocomplete Successful!");
+			}catch (AssertionError p) {
+				test10.log(LogStatus.FAIL, "AutoComplete Unsuccessful");
+				fail();
+			}finally {
+				test10.log(LogStatus.INFO, "Test Complete");
+				report.endTest(test10);
+			}
+		}
+		@Test
+		public void datePickerTest() {
+			
+			ExtentTest test11 = report.startTest("Testing DatePicker Page opens");
+			HomePage demoHome5 = PageFactory.initElements(myDriver, HomePage.class);
+			demoHome5.clickDatePickerButton();
+			test11.log(LogStatus.INFO, "Attempting to access DatePicker page");
+			try {
+				assertEquals("http://demoqa.com/datepicker/", myDriver.getCurrentUrl());
+				test11.log(LogStatus.PASS, "Accessed DatePicker Page");
+			}catch (AssertionError o) {
+				test11.log(LogStatus.FAIL, "Could Not Access DatePicker Page");
+				fail();
+			}finally {
+				test11.log(LogStatus.INFO, "Current URL: " + myDriver.getCurrentUrl());
+				report.endTest(test11);
+			}
+			ExtentTest test12 = report.startTest("Testing DatePicker Functions");
+			DatePicker datepick = PageFactory.initElements(myDriver, DatePicker.class);
+			datepick.openDateSelection();
+			datepick.pickAndCheckDate();
+			test12.log(LogStatus.INFO, "Attempting to select date");
+			
+			WebElement dateBar = myDriver.findElement(By.id("datepicker1"));
+			try {
+				assertEquals("June 14, 2018", dateBar.getAttribute("value"));
+				test12.log(LogStatus.PASS, "Found Correct Date Function Works!");
+			}catch(AssertionError s) {
+				test12.log(LogStatus.FAIL, "DatePicker Unsuccessful");
+			}finally {
+				test12.log(LogStatus.INFO, "Test Complete");
+				report.endTest(test12);
+			}
+		}
 	@After
 	public void tearDown() {
 		myDriver.close();
