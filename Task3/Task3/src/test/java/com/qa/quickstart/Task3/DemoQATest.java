@@ -26,6 +26,7 @@ public class DemoQATest {
 	
 	ExtentTest test;
 	ExtentTest test2;
+	ExtentTest test3;
 	
 	@BeforeClass 
 	public static void init() {	
@@ -63,15 +64,83 @@ public class DemoQATest {
 		test2.log(LogStatus.INFO, "Attempting to access droppable page...");
 		try {
 			assertEquals("http://demoqa.com/droppable/",myDriver.getCurrentUrl());
-			test2.log(LogStatus.PASS, "Access Droppable Page");
+			test2.log(LogStatus.PASS, "Accessed Droppable Page");
 		}catch (AssertionError g) {
 			test2.log(LogStatus.FAIL, "Could Not Access Droppable Page");
+			fail();
 		}finally {
 			test2.log(LogStatus.INFO, "Current URL: " + myDriver.getCurrentUrl());
 			report.endTest(test2);
 		}
+		ExtentTest test3 = report.startTest("Moving box to location");
+		Droppable demoDrop = PageFactory.initElements(myDriver, Droppable.class );
+		demoDrop.clickAndDrop();
+		test3.log(LogStatus.INFO, "Attempting to drag and drop box..");
 		
+		WebElement box = myDriver.findElement(By.xpath("//*[@id=\"droppableview\"]"));
+		
+		try {
+			assertEquals("Dropped!", box.getText());
+			test3.log(LogStatus.PASS, "Nice One!, Box Dropped in right place!");
+		}catch (AssertionError j) {
+			test3.log(LogStatus.FAIL, "Bad Luck! Your box was not moved or dropped in right place");
+			fail();
+		}finally {
+			test3.log(LogStatus.INFO, "End of Test");
+			report.endTest(test3);
+		}	
 	}
+	
+	@Test
+	public void selectableTest() {
+		ExtentTest test4 = report.startTest("Navigate to Selectable Page");
+		HomePage demoHome2 = PageFactory.initElements(myDriver, HomePage.class);
+		demoHome2.clickSelectableButton();
+		test4.log(LogStatus.INFO, "Attempting to access selectable page");
+		try {
+			assertEquals("http://demoqa.com/selectable/", myDriver.getCurrentUrl());
+			test4.log(LogStatus.PASS, "Accessed Selectable Page");
+		}catch (AssertionError l) {
+			test4.log(LogStatus.FAIL, "Could Not Access Selectable Page");
+			fail();
+		}finally {
+			test4.log(LogStatus.INFO, "Current URL: " + myDriver.getCurrentUrl());
+			report.endTest(test4);
+		}
+		ExtentTest test5 = report.startTest("Selecting boxes indivdually");
+		Selectable select = PageFactory.initElements(myDriver, Selectable.class);
+		select.clickBoxes();
+		
+		WebElement item7 = myDriver.findElement(By.xpath("//*[@id=\"selectable\"]/li[7]"));
+		
+		test5.log(LogStatus.INFO, "Attempting to select boxes");
+		try { 
+			assertEquals("ui-widget-content ui-corner-left ui-selectee ui-selected", item7.getAttribute("class"));
+			test5.log(LogStatus.PASS, "Nice one!, Made it to last box!");
+		}catch (AssertionError v) {
+			test5.log(LogStatus.FAIL, "Could not select each box correctly!");
+			fail();
+		}finally {
+			test5.log(LogStatus.INFO, "End of Test");
+			report.endTest(test5);
+		}
+		ExtentTest test6 = report.startTest("Attempting to select all boxes");
+		Selectable selectAll = PageFactory.initElements(myDriver, Selectable.class);
+		selectAll.selectAll();
+		test6.log(LogStatus.INFO, "Attempting to select all boxes at once");
+		try { 
+			assertEquals("ui-widget-content ui-corner-left ui-selectee ui-selected", item7.getAttribute("class"));
+			test6.log(LogStatus.PASS, "Nice one!, Made it to last box!");
+		}catch (AssertionError v) {
+			test6.log(LogStatus.FAIL, "Could not select all boxes correctly!");
+			fail();
+		}finally {
+			test6.log(LogStatus.INFO, "End of Test");
+			report.endTest(test6);
+		}
+	}
+	
+	
 	@After
 	public void tearDown() {
 		myDriver.close();

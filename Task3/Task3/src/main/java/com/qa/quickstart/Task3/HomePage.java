@@ -21,6 +21,10 @@ public class HomePage {
 	@FindBy(xpath = "//*[@id=\"menu-item-142\"]/a")
 	private WebElement selectableButton;
 	
+	public void clickSelectableButton() {
+		selectableButton.click();
+	}
+	
 }
 
 	
