@@ -139,6 +139,41 @@ public class DemoQATest {
 			report.endTest(test6);
 		}
 	}
+	@Test 
+	public void accordionTest() {
+		ExtentTest test7 = report.startTest("Testing Accordion Page opens");
+		HomePage demoHome3 = PageFactory.initElements(myDriver, HomePage.class);
+		demoHome3.clickAccordionButton();
+		test7.log(LogStatus.INFO, "Attempting to access accordion page");
+		try {
+			assertEquals("http://demoqa.com/accordion/", myDriver.getCurrentUrl());
+			test7.log(LogStatus.PASS, "Accessed Accordion Page");
+		}catch (AssertionError l) {
+			test7.log(LogStatus.FAIL, "Could Not Access Accordion Page");
+			fail();
+		}finally {
+			test7.log(LogStatus.INFO, "Current URL: " + myDriver.getCurrentUrl());
+			report.endTest(test7);
+		}
+		
+		ExtentTest test8 = report.startTest("Testing Accordion Elements");
+		Accordion selectTabs = PageFactory.initElements(myDriver, Accordion.class);
+		selectTabs.clickTabs();
+		test8.log(LogStatus.INFO, "Attempting to open each tab");
+		
+		WebElement finalTabInfo = myDriver.findElement(By.id("ui-id-11"));
+		try {
+			assertEquals("ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active", finalTabInfo.getAttribute("class"));
+			test8.log(LogStatus.PASS, "Nice One! You have Displayed all contents!");
+		}catch (AssertionError z) {
+			test8.log(LogStatus.FAIL, "Bad Luck! You have not displayed all contents!");
+			fail();
+		}finally {
+			test8.log(LogStatus.INFO, "End of Accordion Test");
+			report.endTest(test8);
+		}
+		
+	}
 	
 	
 	@After

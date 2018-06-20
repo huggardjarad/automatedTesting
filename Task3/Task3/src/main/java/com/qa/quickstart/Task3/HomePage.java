@@ -25,6 +25,13 @@ public class HomePage {
 		selectableButton.click();
 	}
 	
+	@FindBy(xpath = "//*[@id=\"menu-item-144\"]/a")
+	private WebElement accordionWidget;
+	
+	public void clickAccordionButton() {
+		accordionWidget.click();
+	}
+	
 }
 
 	
