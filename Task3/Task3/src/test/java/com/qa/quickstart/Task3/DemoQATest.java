@@ -24,10 +24,6 @@ public class DemoQATest {
 	
 	static ExtentReports report;
 	
-	ExtentTest test;
-	ExtentTest test2;
-	ExtentTest test3;
-	
 	@BeforeClass 
 	public static void init() {	
 			System.setProperty("webdriver.chrome.driver", "C:\\Users\\Admin\\chromedriver.exe");
@@ -244,6 +240,71 @@ public class DemoQATest {
 				test12.log(LogStatus.INFO, "Test Complete");
 				report.endTest(test12);
 			}
+		}
+		@Test 
+		public void menuTest() {
+			ExtentTest test13 = report.startTest("Testing Menu Page opens");
+			HomePage demoHome6 = PageFactory.initElements(myDriver, HomePage.class);
+			demoHome6.clickMenuButton();
+			test13.log(LogStatus.INFO, "Attempting to access Menu page");
+			try {
+				assertEquals("http://demoqa.com/menu/", myDriver.getCurrentUrl());
+				test13.log(LogStatus.PASS, "Accessed Menu Page");
+			}catch (AssertionError o) {
+				test13.log(LogStatus.FAIL, "Could Not Access Menu Page");
+				fail();
+			}finally {
+				test13.log(LogStatus.INFO, "Current URL: " + myDriver.getCurrentUrl());
+				report.endTest(test13);
+			}
+			ExtentTest test14 = report.startTest("Testing selections change color");
+			Menu menuTask = PageFactory.initElements(myDriver, Menu.class);
+			menuTask.mouseHover();	
+			test14.log(LogStatus.INFO, "Testing if Menu box changes colour");
+			WebElement homeBox2 = myDriver.findElement(By.xpath("//*[@id=\"navigate\"]/ul/li[1]"));
+			try {
+				assertEquals("rgba(255, 153, 0, 1)", homeBox2.getCssValue("background-color"));
+				test14.log(LogStatus.PASS, "Menu Box Changed colour, nice one!");
+			}catch (AssertionError e) {
+				test14.log(LogStatus.FAIL, "Menu Box did not change colour!");
+				fail();
+			}finally {
+				test14.log(LogStatus.INFO, "Test Complete");
+				report.endTest(test14);
+			}
+		}
+		@Test 
+		public void sliderTest() {
+			ExtentTest test15 = report.startTest("Testing Slider Page opens");
+			HomePage demoHome7 = PageFactory.initElements(myDriver, HomePage.class);
+			demoHome7.clickSliderButton();
+			test15.log(LogStatus.INFO, "Attempting to access Slider page");
+			try {
+				assertEquals("http://demoqa.com/slider/", myDriver.getCurrentUrl());
+				test15.log(LogStatus.PASS, "Accessed Slider Page");
+			}catch (AssertionError o) {
+				test15.log(LogStatus.FAIL, "Could Not Access Slider Page");
+				fail();
+			}finally {
+				test15.log(LogStatus.INFO, "Current URL: " + myDriver.getCurrentUrl());
+				report.endTest(test15);
+			}
+			ExtentTest test16 = report.startTest("Testing Slider Function");
+			Slider sliderTest = PageFactory.initElements(myDriver, Slider.class);
+			sliderTest.sliderPull();
+			test16.log(LogStatus.INFO, "Testing Slider Function");
+			WebElement amount = myDriver.findElement(By.id("amount1"));
+			try {
+				assertEquals("9", amount.getAttribute("value"));
+				test16.log(LogStatus.PASS, "Nice one! Slider Works");
+			}catch(AssertionError t) {
+				test16.log(LogStatus.FAIL, "Bad Luck! Slider doesn't work");
+				fail();
+			}finally {
+				test16.log(LogStatus.INFO, "Test Complete");
+				report.endTest(test16);
+			}
+			
 		}
 	@After
 	public void tearDown() {

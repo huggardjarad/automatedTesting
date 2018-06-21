@@ -11,8 +11,6 @@ public class HomePage {
 	@FindBy(xpath = "//*[@id=\"menu-item-141\"]/a") 
 	private WebElement droppableButton;
 	
-	
-	
 	public void clickDroppableButton() {	
 		droppableButton.click();
 	}
@@ -41,7 +39,18 @@ public class HomePage {
 	public void clickDatePickerButton() {
 		datePickerWidget.click();
 	}
+	@FindBy(xpath = "//*[@id=\"menu-item-147\"]/a")
+	private WebElement menuWidget;
 	
+	public void clickMenuButton() {
+		menuWidget.click();
+	}
+	@FindBy(xpath = "//*[@id=\"menu-item-97\"]/a")
+	private WebElement sliderWidget;
+	
+	public void clickSliderButton() {
+		sliderWidget.click();
+	}
 }
 
 	
